@@ -1,6 +1,7 @@
 Flask~=3.1.2
 Werkzeug~=3.1.4
 ursina~=8.2.0
-gunicorn
+gunicorn==21.2.0
+
 
 
