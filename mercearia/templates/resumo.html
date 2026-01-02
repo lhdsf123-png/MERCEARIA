@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Resumo do Dia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="icon" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/cart.svg" type="image/svg+xml">
+    <style>
+body {
+    background-image: url('/static/estoque.png'); /* sua imagem */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.85); /* fundo branco semi-transparente */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    max-width: 600px;
+    margin: 60px auto;
+}
+</style>
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <h1 class="text-success">📊 Resumo do Dia - {{ data }}</h1>
+
+    <div class="alert alert-info">
+        <strong>Total de Vendas:</strong> R$ {{ total_vendas }}
+    </div>
+    <div class="alert alert-warning">
+        <strong>Total Fiado em aberto:</strong> R$ {{ total_fiado }}
+    </div>
+    <div class="alert alert-success">
+        <strong>Total recebido de Fiado pago:</strong> R$ {{ total_pago_fiado }}
+    </div>
+
+    <h2 class="mt-4">📋 Fiados em aberto</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for f in fiados %}
+            <tr>
+                <td>{{ f.cliente }}</td>
+                <td>R$ {{ f.valor }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2 class="mt-4">✅ Fiados pagos</h2>
+    <table class="table table-success">
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in pagamentos %}
+            <tr>
+                <td>{{ p.cliente }}</td>
+                <td>R$ {{ p.valor }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Botão para baixar PDF -->
+    <a href="{{ url_for('download_pdf') }}" class="btn btn-primary btn-custom mt-3">
+        📄 Baixar Relatório em PDF
+    </a>
+
+    <a href="/" class="btn btn-secondary mt-3">Voltar</a>
+</div>
+
+</body>
+</html>
